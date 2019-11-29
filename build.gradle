@@ -36,6 +36,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-test-junit"
     compile("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}") // needed to execute any JUnit4-style tests
 }
 
@@ -50,5 +51,12 @@ compileTestKotlin {
 sourceSets {
     test {
         kotlin.srcDirs = ['src/test/kotlin/unit']
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
     }
 }
