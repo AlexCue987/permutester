@@ -1,5 +1,6 @@
 package org.kollektions.permutester
 
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -25,6 +26,32 @@ class TestSuiteWithAllCases {
     fun `works for test suite with all cases`() {
         val actualPermutations = getMembersAnnotationValues<SampleTestCase>(this) { listOf(it.color, it.shape) }
         expectedPermutations.match(actualPermutations)
+    }
+}
+
+class TestSuiteWithAllCasesButOneIgnored {
+    @Test
+    @SampleTestCase(color = "Red", shape = "Dot")
+    fun `works for red dot`() {}
+
+    @Ignore
+    @Test
+    @SampleTestCase(color = "Green", shape = "Dot")
+    fun `works for green dot`() {}
+
+    @Test
+    @SampleTestCase(color = "Red", shape = "Comma")
+    fun `works for red comma`() {}
+
+    @Test
+    @SampleTestCase(color = "Green", shape = "Comma")
+    fun `works for green comma`() {}
+
+    @Test
+    fun `finds ignored test`() {
+        val actualPermutations = getMembersAnnotationValues<SampleTestCase>(this) { listOf(it.color, it.shape) }
+        val actual = assertFailsWith<AssertionError> { expectedPermutations.match(actualPermutations) }
+        assertEquals("Missing:\n[Green, Dot]", actual.message)
     }
 }
 
