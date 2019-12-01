@@ -1,6 +1,6 @@
 package org.kollektions.permutester
 
-class Permutator(val expectedPermutations: List<List<Any>>) {
+class Permutations(val expectedPermutations: List<List<Any>>) {
     constructor(vararg items: List<Any>): this(permutate(*items))
 
     fun match(actualPermutations: List<List<Any>>) {

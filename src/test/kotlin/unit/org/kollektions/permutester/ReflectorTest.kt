@@ -11,7 +11,7 @@ import kotlin.test.Test
 class ReflectorTest: MandatoryTests {
     @Test
     override fun worksForOneArgument(){
-        val actual = Permutator(listOf("Red", "Blue", "White")).expectedPermutations
+        val actual = Permutations(listOf("Red", "Blue", "White")).expectedPermutations
         assertEquals(setOf(listOf("Red"), listOf("Blue"), listOf("White")), actual.toSet())
     }
 

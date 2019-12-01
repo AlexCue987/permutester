@@ -5,10 +5,10 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class PermutatorTest {
+class PermutationsTest {
     @Test
     fun worksForOneArgument(){
-        val actual = Permutator(listOf("Red", "Blue", "White")).expectedPermutations
+        val actual = Permutations(listOf("Red", "Blue", "White")).expectedPermutations
         assertEquals(setOf(listOf("Red"), listOf("Blue"), listOf("White")), actual.toSet())
     }
 
@@ -28,7 +28,7 @@ class PermutatorTest {
 
     @Test
     fun worksForTwoArguments(){
-        val actual = Permutator(listOf("Red", "Blue"),
+        val actual = Permutations(listOf("Red", "Blue"),
                 listOf("Jedi", "Elf")).expectedPermutations
         assertEquals(setOf(listOf("Red", "Jedi"), listOf("Blue", "Jedi"),
                 listOf("Red", "Elf"), listOf("Blue", "Elf")), actual.toSet())
@@ -36,7 +36,7 @@ class PermutatorTest {
 
     @Test
     fun worksForThreeArguments(){
-        val actual = Permutator(listOf("Red", "Blue"),
+        val actual = Permutations(listOf("Red", "Blue"),
                 listOf("Jedi", "Elf"), listOf(BigDecimal.ZERO, BigDecimal.ONE)).expectedPermutations
         assertEquals(setOf(
                 listOf("Red", "Jedi", BigDecimal.ZERO),

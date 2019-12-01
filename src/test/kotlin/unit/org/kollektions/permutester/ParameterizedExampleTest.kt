@@ -38,7 +38,7 @@ class ParameterizedExampleTest {
     private val allColors = listOf("Red", "Amber")
     private val allShapes = listOf("Comma", "Dot")
 
-    private val allExpectedTestCases = Permutator(allColors, allShapes)
+    private val allExpectedTestCases = Permutations(allColors, allShapes)
 
     data class ParameterizedExampleTestCase(val color: String, val shape: String) {
         fun mapToPermutation() = listOf(color, shape)

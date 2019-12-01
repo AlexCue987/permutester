@@ -137,6 +137,6 @@ class TestSuiteWithUnexpectedTestForAmberDot {
     }
 }
 
-val expectedPermutations = Permutator(listOf("Red", "Green"), listOf("Dot", "Comma"))
+val expectedPermutations = Permutations(listOf("Red", "Green"), listOf("Dot", "Comma"))
 
 private annotation class SampleTestCase(val color: String, val shape: String)
