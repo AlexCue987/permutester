@@ -1,12 +1,9 @@
-package org.kollektions.examples
+package org.kollektions.examples.robot
 
 import java.math.BigDecimal
-import kotlin.math.abs
-import kotlin.math.sqrt
 import kotlin.test.Test
-import kotlin.test.assertTrue
 
-data class RobotWithMergedChangesAndBug(val weight: BigDecimal, val energyPerJump: BigDecimal){
+data class RobotChangedBySlava(val weight: BigDecimal){
     val itemsToCarry = mutableListOf<ItemToCarry>()
 
     fun walk(){}
@@ -14,12 +11,12 @@ data class RobotWithMergedChangesAndBug(val weight: BigDecimal, val energyPerJum
     fun carry(itemToCarry: ItemToCarry) = itemsToCarry.add(itemToCarry)
 
     fun dropItems() = itemsToCarry.clear()
-
-    fun maxJumpSpeed() = sqrt(energyPerJump.divide(weight).toDouble())
 }
 
-class RobotWithMergedChangesAndBugTest {
-    val sut = RobotWithMergedChangesAndBug(weight = BigDecimal.ONE, energyPerJump = BigDecimal("16"))
+data class ItemToCarry(val weight: BigDecimal)
+
+class RobotChangedBySlavaTest {
+    val sut = RobotChangedBySlava(weight = BigDecimal.ONE)
 
     @Test
     fun `can walk`() {
@@ -37,11 +34,6 @@ class RobotWithMergedChangesAndBugTest {
         sut.carry(ItemToCarry(BigDecimal.ONE))
         sut.dropItems()
         sut.walk()
-    }
-
-    @Test
-    fun `computes maxJumpSpeed`() {
-        assertTrue(abs(sut.maxJumpSpeed() - 4.0) < 0.000001)
     }
 }
 

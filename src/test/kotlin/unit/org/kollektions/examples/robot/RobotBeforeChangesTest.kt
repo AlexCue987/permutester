@@ -1,4 +1,4 @@
-package org.kollektions.examples
+package org.kollektions.examples.robot
 
 import java.math.BigDecimal
 import kotlin.test.Test

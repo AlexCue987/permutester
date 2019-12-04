@@ -1,4 +1,4 @@
-package org.kollektions.examples
+package org.kollektions.examples.robot
 
 import java.math.BigDecimal
 import kotlin.math.abs
@@ -20,7 +20,10 @@ class RobotChangedBySvetaTest {
 
     @Test
     fun `computes maxJumpSpeed`() {
-        val sut = RobotChangedBySveta(weight = BigDecimal.ONE, energyPerJump = BigDecimal("16"))
+        val sut = RobotChangedBySveta(
+            weight = BigDecimal.ONE,
+            energyPerJump = BigDecimal("16")
+        )
         assertTrue(abs(sut.maxJumpSpeed() - 4.0) < 0.000001)
     }
 }

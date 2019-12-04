@@ -1,4 +1,4 @@
-package org.kollektions.examples
+package org.kollektions.examples.robot
 
 import org.kollektions.permutester.Permutations
 import org.kollektions.permutester.getMembersAnnotationValues
@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
-data class RobotWithFixedBug(val weight: BigDecimal, val energyPerJump: BigDecimal){
+data class RobotWithDiscoveredBug(val weight: BigDecimal, val energyPerJump: BigDecimal){
     val itemsToCarry = mutableListOf<ItemToCarry>()
 
     fun walk(){}
@@ -19,17 +19,12 @@ data class RobotWithFixedBug(val weight: BigDecimal, val energyPerJump: BigDecim
 
     fun dropItems() = itemsToCarry.clear()
 
-    fun totalWeight():BigDecimal {
-        var ret = weight
-        itemsToCarry.forEach { ret = ret.add(it.weight) }
-        return ret
-    }
-
-    fun maxJumpSpeed() = sqrt(energyPerJump.divide(totalWeight()).toDouble())
+    fun maxJumpSpeed() = sqrt(energyPerJump.divide(weight).toDouble())
 }
 
-class RobotWithFixedBugTest {
-    val sut = RobotWithFixedBug(weight = BigDecimal.ONE, energyPerJump = BigDecimal("16"))
+class RobotWithDiscoveredBugTest {
+    val sut =
+        RobotWithDiscoveredBug(weight = BigDecimal.ONE, energyPerJump = BigDecimal("16"))
 
     @RobotTestCase(motionType = MotionType.Walk, loadType = LoadType.None)
     @Test
@@ -51,15 +46,8 @@ class RobotWithFixedBugTest {
 
     @RobotTestCase(motionType = MotionType.Jump, loadType = LoadType.None)
     @Test
-    fun `computes maxJumpSpeed without load`() {
+    fun `computes maxJumpSpeed`() {
         assertTrue(abs(sut.maxJumpSpeed() - 4.0) < 0.000001)
-    }
-
-    @RobotTestCase(motionType = MotionType.Jump, loadType = LoadType.OneItem)
-    @Test
-    fun `computes maxJumpSpeed when carrying an item`() {
-        sut.carry(ItemToCarry(BigDecimal("3")))
-        assertTrue(abs(sut.maxJumpSpeed() - 2.0) < 0.000001)
     }
 
     enum class MotionType {Walk, Jump}
@@ -71,9 +59,10 @@ class RobotWithFixedBugTest {
     private annotation class RobotTestCase(val motionType: MotionType, val loadType: LoadType)
 
     @Test
-    fun `ensures all permutations tested`() {
+    fun `finds missing test`() {
         val actualPermutations = getMembersAnnotationValues<RobotTestCase>(this) { listOf(it.motionType, it.loadType) }
-        expectedPermutations.match(actualPermutations)
+        val actual = assertFailsWith<AssertionError> { expectedPermutations.match(actualPermutations) }
+        assertEquals("Missing:\n[Jump, OneItem]", actual.message)
     }
 }
 
