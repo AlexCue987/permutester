@@ -18,6 +18,10 @@ class Permutations(val expectedPermutations: List<List<Any>>) {
             throw AssertionError(message)
         }
     }
+
+    fun withFilter(itemsFilter: (items: List<Any>) -> Boolean) = Permutations(
+        expectedPermutations.filter { itemsFilter(it) }
+    )
 }
 
 private fun describeList(collection: Collection<Any>) = collection.joinToString("\n")

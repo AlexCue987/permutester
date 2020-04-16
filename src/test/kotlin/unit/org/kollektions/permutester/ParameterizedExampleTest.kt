@@ -13,7 +13,7 @@ class ParameterizedExampleTest {
 
     @ParameterizedTest
     @MethodSource("completeSetOfCases")
-    fun `parse valid tokens`(data: ParameterizedExampleTestCase) {
+    fun `just a sample test`(data: ParameterizedExampleTestCase) {
         println(data)
     }
 

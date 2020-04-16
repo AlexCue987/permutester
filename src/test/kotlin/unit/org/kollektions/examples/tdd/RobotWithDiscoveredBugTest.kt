@@ -1,4 +1,4 @@
-package org.kollektions.examples.robot
+package org.kollektions.examples.tdd
 
 import org.kollektions.permutester.Permutations
 import org.kollektions.permutester.getMembersAnnotationValues
